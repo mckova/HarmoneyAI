@@ -8,7 +8,9 @@ app = Flask(__name__, static_folder="static", static_url_path="/static")
 CORS(app)
 
 # Load model once at startup (GPU recommended)
-model = MusicGen.get_pretrained("small", device="cuda").eval()
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"Loading MusicGen on {device}")
+model = MusicGen.get_pretrained("small", device=device).eval()
 
 @app.route("/generate-audio", methods=["POST"])
 def generate_audio():
