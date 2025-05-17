@@ -8,7 +8,7 @@ app = Flask(__name__, static_folder="static", static_url_path="/static")
 CORS(app)
 
 # Load model once at startup (GPU recommended)
-model = MusicGen.get_pretrained("facebook/musicgen-small").cuda().eval()
+model = MusicGen.get_pretrained("small").cuda().eval()
 
 @app.route("/generate-audio", methods=["POST"])
 def generate_audio():
